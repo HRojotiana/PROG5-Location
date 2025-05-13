@@ -4,6 +4,7 @@ class Rentable:
     def __init__(self, name):
         self.name = name
         self.rented = False
+        self.duration = 0
 
     @property
     def name(self):
@@ -28,6 +29,7 @@ class Rentable:
         today = datetime.now()
         newDate = today + timedelta(days=duration)
         return newDate.strftime("%Y-%m-%d")
+
     
     def rent(self, duration):
         if(duration <= 0):
@@ -35,8 +37,15 @@ class Rentable:
         else:
             if(self.rented == False):
                 self.rented = True
+                self.duration = duration
                 print(f"You rented a {self.name} for {duration} days")
             else:
                 print(f"This item is already rented")
         availableDate = self.countDays(duration)
         print((f"The rental will be terminated until {availableDate}"))
+
+    def getAvailability(self):
+        if(self.rented == False):
+            print(f"The {self.name} is available")
+        else:
+            print(f"The {self.name} is on {self.countDays(self.duration)}")
