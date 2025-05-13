@@ -15,5 +15,10 @@ public class Main {
         System.out.println(rentable.getName());
         System.out.println(rentable.getRented());
         rentable.rent(duration);
+
+        //Check availability: Uncomment to check
+        /*Rentable rentedItem = new Rentable("house");
+        rentedItem.rent(8);
+        System.out.println(rentedItem.getAvailability());*/
     }
 }
