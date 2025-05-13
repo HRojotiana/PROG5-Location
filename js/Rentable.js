@@ -2,6 +2,7 @@ class Rentable {
     constructor(name) {
         this.name = name;
         this.rented = false;
+        this.duration = 0;
     }
 
     rent(duration) {
@@ -10,6 +11,7 @@ class Rentable {
         } else {
             if (!this.rented) {
                 this.rented = true;
+                this.duration = duration;
                 const availableDate = this.countDays(duration);
                 console.log("You rented a " + this.name + " for " + duration + " days until " + availableDate);
             } else {
@@ -25,10 +27,10 @@ class Rentable {
     }
 
     getAvailability() {
-        if (this.rented && this.availableDate) {
-            return `This item will be available on: ${this.availableDate}`;
-        } else {
+        if (!this.rented) {
             return "This item is currently available.";
+        } else {
+            return `This item will not be available until: ${this.countDays(this.duration)}`;
         }
     }
 }
