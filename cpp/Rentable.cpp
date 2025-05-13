@@ -10,14 +10,14 @@ using namespace std::chrono;
 
 class Rentable {
 private:
-    system_clock::time_point returnDate;  
+    system_clock::time_point returnDate;
 
     string countDays(double numDays) {
         auto now = system_clock::now();
         auto addedDuration = duration_cast<system_clock::duration>(
             duration<double, std::ratio<86400>>(numDays));
         auto futureTime = now + addedDuration;
-        returnDate = futureTime;  
+        returnDate = futureTime;
 
         time_t futureTimeT = system_clock::to_time_t(futureTime);
         stringstream ss;
@@ -28,6 +28,7 @@ private:
 public:
     string name;
     bool rented;
+
     Rentable(string n) : name(n), rented(false) {}
 
     void setName(string n) {
@@ -72,6 +73,17 @@ public:
         ss << "This item will be available on " << put_time(localtime(&returnTimeT), "%Y-%m-%d");
         return ss.str();
     }
+
+    string getAvailability() const {
+        if (!rented) {
+            return "Available";
+        } else {
+            time_t returnTimeT = system_clock::to_time_t(returnDate);
+            stringstream ss;
+            ss << "Unavailable (until " << put_time(localtime(&returnTimeT), "%Y-%m-%d") << ")";
+            return ss.str();
+        }
+    }
 };
 
 int main() {
@@ -87,7 +99,7 @@ int main() {
     rentable.rent(duration);
 
     cout << rentable.getAvailabilityDate() << endl;
+    cout << rentable.getAvailability() << endl;
 
     return 0;
 }
-
