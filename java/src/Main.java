@@ -15,6 +15,7 @@ public class Main {
         System.out.println(rentable.getName());
         System.out.println(rentable.getRented());
         rentable.rent(duration);
+        System.out.println(rentable.getAvailability());
 
         //Check availability: Uncomment to check
         /*Rentable rentedItem = new Rentable("house");
